@@ -1,4 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/203b687d-7e06-488a-b3f0-9cf21c473417/resourceGroups/Four03LearningAppServicePlan/providers/Microsoft.Web/sites/ffl-commish-tools",
-    "appService.deploySubpath": "."
-}
