@@ -25,9 +25,12 @@ router.get('/', async function(req, res, next) {
 
   if (token_response.ok) {
     token_response_json = await token_response.json();
-    console.log(token_response_json);
-    console.log(token_response_json.access_token);
-    console.log(token_response_json.refresh_token);
+
+    if (globals.APP_ENVIRONMENT == 'DEV') {
+      console.log(token_response_json);
+      console.log(token_response_json.access_token);
+      console.log(token_response_json.refresh_token);
+    }
   }
 
   res.cookie(globals.USER_COOKIE, token_response_json, { maxAge: 3600000 });
