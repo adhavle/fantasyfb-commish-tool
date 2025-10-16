@@ -14,10 +14,10 @@ router.get('/', async function(req, res, next) {
   var body = `grant_type=authorization_code`;
   body += `&code=${authz_code}`;
   body += `&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk`;
-  body += `&client_id=${globals.COMMISH_TOOL_CLIENTID}`;
+  body += `&client_id=${globals.CLIENTID}`;
   body += `&redirect_uri=https%3A%2F%2Flocalhost%3A3443%2Fauthz_callback/`;
 
-  let token_response = await fetch(globals.TOKEN_ENDPOINT, {
+  let token_response = await fetch(globals.TOKENENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: body
@@ -26,14 +26,14 @@ router.get('/', async function(req, res, next) {
   if (token_response.ok) {
     token_response_json = await token_response.json();
 
-    if (globals.APP_ENVIRONMENT == 'DEV') {
+    if (globals.APPENVIRONMENT == 'DEV') {
       console.log(token_response_json);
       console.log(token_response_json.access_token);
       console.log(token_response_json.refresh_token);
     }
   }
 
-  res.cookie(globals.USER_COOKIE, token_response_json, { maxAge: 3600000 });
+  res.cookie(globals.COOKIENAME, token_response_json, { maxAge: 3600000 });
   
   // res.send('respond with a resource');
   res.redirect('/');

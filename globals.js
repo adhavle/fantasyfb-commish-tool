@@ -1,7 +1,12 @@
-export const APP_ENVIRONMENT = process.env.APP_ENVIRONMENT;
-export const USER_COOKIE = "SDBCOMMISHTOOLSESSION";
-export const AUTHZ_ENDPOINT = "https://api.login.yahoo.com/oauth2/request_auth";
-export const TOKEN_ENDPOINT = "https://api.login.yahoo.com/oauth2/get_token";
-export const REDIRECT_URI = process.env.REDIRECT_URI;
-export const COMMISH_TOOL_CLIENTID = process.env.COMMISH_TOOL_CLIENTID;
-export const COMMISH_TOOL_SECRET = process.env.COMMISH_TOOL_SECRET;
+export const APPENVIRONMENT = process.env.APPENVIRONMENT;
+export const COOKIENAME = "SDBCOMMISHTOOLSESSION";
+export const METADATAENDPOINT = "https://api.login.yahoo.com/.well-known/openid-configuration";
+export const AUTHZENDPOINT = "https://api.login.yahoo.com/oauth2/request_auth";
+export const TOKENENDPOINT = "https://api.login.yahoo.com/oauth2/get_token";
+export const REDIRECTURI = process.env.COMMISHTOOLREDIRECTURI;
+export const CLIENTID = process.env.COMMISHTOOLCLIENTID;
+export const SECRET = process.env.COMMISHTOOLSECRET;
+export const COOKIEKEY = process.env.COMMISHTOOLCOOKIEKEY;
+
+// Yahoo Fantasy Football API URIs
+export const GetTeamsUri = "https://fantasysports.yahooapis.com/fantasy/v2/league/461.l.139106/teams";

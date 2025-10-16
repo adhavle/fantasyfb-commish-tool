@@ -36,7 +36,7 @@ server.on('listening', onListening);
 /**
  * Create HTTPS server.
  */
-var httpsPort = process.env.HTTPS_PORT;
+var httpsPort = process.env.HTTPSPORT;
 var httpsPortInt = undefined;
 var isHttpsRequired = false;
 if (httpsPort === undefined) {
