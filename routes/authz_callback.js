@@ -31,7 +31,7 @@ router.get('/', async function(req, res, next) {
   }
 
   res.cookie(globals.COOKIENAME, token_response_json, { maxAge: 3600000 });
-  
+
   // res.send('respond with a resource');
   res.redirect('/');
 });
