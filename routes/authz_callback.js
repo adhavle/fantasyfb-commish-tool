@@ -4,17 +4,14 @@ const globals = require('../globals');
 
 /* GET authz callback with code */
 router.get('/', async function(req, res, next) {
-  console.log("received authz callback");
+  globals.log.info("received authz callback");
 
-  /**
-   * TBD1: fetch state cookie and compare with state from QSP
-   */
   var authz_code = req.query['code'];
 
   var body = `grant_type=authorization_code`;
   body += `&code=${authz_code}`;
-  body += `&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk`;
   body += `&client_id=${globals.CLIENTID}`;
+  body += `&client_secret=${globals.SECRET}`;
   body += `&redirect_uri=https%3A%2F%2Flocalhost%3A3443%2Fauthz_callback/`;
 
   let token_response = await fetch(globals.TOKENENDPOINT, {
@@ -27,9 +24,9 @@ router.get('/', async function(req, res, next) {
     token_response_json = await token_response.json();
 
     if (globals.APPENVIRONMENT == 'DEV') {
-      console.log(token_response_json);
-      console.log(token_response_json.access_token);
-      console.log(token_response_json.refresh_token);
+      globals.log.info(token_response_json);
+      globals.log.info(token_response_json.access_token);
+      globals.log.info(token_response_json.refresh_token);
     }
   }
 

@@ -12,6 +12,8 @@ var nodePath = require('path');
 var fs = require('fs');
 var https = require('https');
 
+const globals = require('../globals');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -40,17 +42,17 @@ var httpsPort = process.env.HTTPSPORT;
 var httpsPortInt = undefined;
 var isHttpsRequired = false;
 if (httpsPort === undefined) {
-  console.log('No HTTPS port specified (if prod this is expected, ignore this warning)');
+  globals.log.info('No HTTPS port specified (if prod this is expected, ignore this warning)');
 }
 else {
   httpsPortInt = parseInt(httpsPort);
   if (Number.isInteger(httpsPortInt) && httpsPortInt > 1024 && httpsPortInt <= 65535) {
-    console.log(`starting HTTPS server on port ${httpsPortInt}`);
+    globals.log.info(`starting HTTPS server on port ${httpsPortInt}`);
     isHttpsRequired = true;
   }
   else {
-    console.log(`isInteger check: ${Number.isInteger(httpsPortInt)}`);
-    console.log(`Invalid value specified for HTTPS server port ${httpsPortInt}`);
+    globals.log.info(`isInteger check: ${Number.isInteger(httpsPortInt)}`);
+    globals.log.info(`Invalid value specified for HTTPS server port ${httpsPortInt}`);
   }
 } 
 
@@ -70,7 +72,7 @@ if (isHttpsRequired)
   
   let httpsServer = https.Server(sslOptions, app);
   httpsServer.listen(httpsPortInt, function() {
-      console.log(`HTTPS server listening on port ${httpsPortInt}`);
+      globals.log.info(`HTTPS server listening on port ${httpsPortInt}`);
   });
 }
 

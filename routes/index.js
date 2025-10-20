@@ -13,18 +13,15 @@ router.get('/', async function(req, res, next) {
   }
 
   if (typeof(user_cookie) == "undefined") {
-    console.log("No user cookie.. start the signin flow");
+    globals.log.info("No user cookie.. start the signin flow");
 
     /**
      * TBD1: set state cookie (if yahoo supports), and state value
-     * TBD2: remove PKCE stuff and move to confidential client app
      */
     let url = `${globals.AUTHZENDPOINT}`;
         url += `?client_id=${globals.CLIENTID}`;
         url += `&redirect_uri=${encodeURIComponent(globals.REDIRECTURI)}`;
         url += `&response_type=code`;
-        url += `&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM`;
-        url += `&code_challenge_method=S256`;
 
     res.redirect(url);
   }
@@ -33,7 +30,7 @@ router.get('/', async function(req, res, next) {
     // DO NOT LOG THIS IN PROD. DO NOT REMOVE THIS CONDITIONAL
     if (process.env.APPENVIRONMENT == 'DEV')
       {
-        console.log(user_cookie);
+        globals.log.info(user_cookie);
       }
       
       let bearerToken = user_cookie.access_token;
@@ -57,7 +54,7 @@ router.get('/', async function(req, res, next) {
       teamsInfo['team'].forEach(element => {
         teamsData.push({ teamKey: element['team_key'][0], teamId: element['team_id'][0], team: `${element['name'][0]} (${element['managers'][0]['manager'][0]['nickname']})` })
       });
-      console.log(teamsData);
+      globals.log.info(teamsData);
 
       
       res.render('index', { title: 'Express' });
