@@ -9,34 +9,65 @@
   </head>
 
   <body>
-    <h5>FFL Commish Tool</h5>
+    <!-- App Header -->
+    <div class="border-bottom border-primary shadow-sm" style="padding: 7px 10px 5px 10px; font-weight: 600;">
+      <img src="/images/management.png" height="16px">&nbsp; FFL Commish Tool
+    </div>
+    <div class="row">
 
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div id="allkeepers">Copy all keepers &#128203;</div>
-          <div class="list-group">
-            <ul id="list-of-teams"></ul>
-          </div>
+      <!-- List of teams / left column -->
+      <div class="col">
+
+        <!-- Copy All Keepers button (top of left column) -->
+        <div>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary text-start"
+            style="width: 100%;">
+              Copy All Keepers&nbsp;&nbsp;<img src="/images/copy.png" height="16px">
+          </button>
         </div>
-        <div class="col">
-          <div id="keepers">Copy keepers for current team (oo)</div>
-          <div class="team"><ul id="list-of-keepers"></ul></div>
+
+        <!-- List of teams (most of left column) -->
+        <div
+          id="list-of-teams"
+          class="btn-group-vertical"
+          role="group"
+          aria-label="Vertical button group"
+          style="width: 100%;">
+            <!-- Populated dynamically -->
         </div>
+
+      </div>
+
+      <!-- List of keepers for selected team / right column -->
+      <div class="col">
+
+        <!-- Copy current team keepers button (top of right column) -->
+        <div id="keepers">Copy keepers for current team (oo)</div>
+
+        <!-- List of keepers for currently selected team (most of right column) -->
+        <div class="team"><ul id="list-of-keepers"></ul></div>
+
       </div>
     </div>
 
     <!-- Only scripts should be loaded below this line -->
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
     <script src="/javascripts/client_app.js"></script>
   </body>
 
   <footer>
     <!-- Attribution for favicon from https://www.flaticon.com/free-icon/management_17270492 -->
     <br><a href="https://www.flaticon.com/free-icons/american-football" title="favicon credit">favicon by ffif fudin/flaticon</a>
+    <a href="https://www.flaticon.com/free-icons/copy" title="copy icons">Copy icons created by Freepik - Flaticon</a>
   </footer>
 
+  <!-- Populated from backend -->
   <div id="teams_data" style="display: none;"><%= teams %></div>
   <div id="players_data" style="display: none;"><%= players %></div>
 </html>

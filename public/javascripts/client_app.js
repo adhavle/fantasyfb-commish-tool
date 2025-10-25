@@ -10,7 +10,7 @@ $(document).ready(function() {
     // add list of teams
     var teamsListHtml = "";
     teams.forEach(team => {
-        teamsListHtml += `<li onclick="showKeepers(${team['teamId']})" id="team-list-${team['teamId']}" class="list-group-item d-flex justify-content-between align-items-center">${team['teamName']}</li>`;
+        teamsListHtml += `<button type="button" onclick="showKeepers(${team['teamId']})" id="team-list-${team['teamId']}" class="btn btn-sm btn-outline-dark text-start">${team['teamName']}</button>`;
     });
     $("#list-of-teams").html(teamsListHtml);
     showKeepers(1);    
@@ -21,10 +21,10 @@ function showKeepers(teamId) {
     teamId = parseInt(teamId);
     
     // restore style for current team
-    $(`#team-list-${currentTeamId}`).removeClass("list-group-item-success");
+    $(`#team-list-${currentTeamId}`).removeClass("list-group-item-info");
     
     // set active style for selected team
-    $(`#team-list-${teamId}`).addClass("list-group-item-success");
+    $(`#team-list-${teamId}`).addClass("list-group-item-info");
     currentTeamId = teamId;
     
     // list all players from selected team

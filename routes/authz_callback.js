@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
   body += `&code=${authz_code}`;
   body += `&client_id=${globals.CLIENTID}`;
   body += `&client_secret=${globals.SECRET}`;
-  body += `&redirect_uri=https%3A%2F%2Flocalhost%3A3443%2Fauthz_callback/`;
+  body += `&redirect_uri=${encodeURIComponent(globals.REDIRECTURI)}`;
 
   let token_response = await fetch(globals.TOKENENDPOINT, {
     method: 'POST',
