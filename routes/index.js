@@ -329,13 +329,52 @@ router.get('/', async function(req, res, next) {
       // Get players added after the cutoff week of the current season
       playersAddedAfterCutoffAwaiter = getPlayersAddedAfterTheCutoff(season0);
 
-      // wait on all the above calls to complete
+      // Wait on all the above calls to complete
       league_rosters = await leagueRostersAwaiter;
       previous_keepers = await previousKeepersAwaiter;
       draft_results = await draftResultsAwaiter;
       players_added_after_cutoff = await playersAddedAfterCutoffAwaiter;
 
-      // cycle through each player, on each team, setting their keeper eligibility
+      /** Cycle through each team, and then each player, setting their keeper eligibility
+       * keeperValue key:
+       * -5: keeping a defense is silly
+       * -4: keeping a kicker is silly
+       * -3: player added after cutoff date
+       * -2: consecutive keeper limit reached (well done)
+       * -1: first round picks are ineligible for keepers
+       *  0: UDFA acquisition (can keep for 10th round pick)
+       *  n: was drafted in round n+1 and is eligible
+       */
+      Object.keys(league_rosters).forEach(tk => {
+
+        league_rosters[tk].players.forEach(p => {
+
+          if (p.position === 'DEF') {
+            p.keeperValue = -5;
+          }
+          else if (p.position === 'K') {
+            p.keeperValue = -4;
+          }
+          else if (players_added_after_cutoff.has(p.playerKey)) {
+            p.keeperValue = -3;
+          }
+          else if (p.isKeeper === '1'
+            && !(previous_keepers[p.playerId] === undefined)
+            && league_rosters[tk].managerGuid === previous_keepers[p.playerId].managerGuid) {
+              p.keeperValue = -2;
+          }
+          else if (draft_results[p.playerKey] === '1') {
+            p.keeperValue = -1;
+          }
+          else if (draft_results[p.playerKey] === undefined) {
+            p.keeperValue = 0;
+          }
+          else {
+            p.keeperValue = parseInt(draft_results[p.playerKey]) - 1;
+          }
+
+        });
+      });
 
       // Fetch team names
       let response = await fetch(globals.GetTeamsUri, { headers: { Authorization: `Bearer ${globals.getBearerToken()}` } })
