@@ -87,7 +87,7 @@ const onBackClick = function() {
 
 function getKeepersForTeam(teamId, useKeeperVerbiage) {
     let keeperText = `-- ${leagueData[teamId].teamName} ${useKeeperVerbiage? "keepers" : "" } --`;
-    currentTeamPlayers = leagueData[currentTeamId].players;
+    currentTeamPlayers = leagueData[teamId].players;
     currentTeamPlayers.sort((a, b) => { return b.keeperValue - a.keeperValue; });
     currentTeamPlayers.forEach(p => {
         if (p.keeperValue > 0) {
