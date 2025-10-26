@@ -6,27 +6,24 @@
     <title>FFL Commish Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="apple-touch-icon" sizes="128x128" href="/images/management.png">
   </head>
 
   <body>
+  <div class="container">
+  <div class="row g-0">
+  <div class="col-sm-2" id="space1"></div>
+  <div class="col-sm-8" id="contentColumn">
     <!-- App Header -->
-    <div class="border-bottom border-primary shadow-sm" style="padding: 7px 10px 5px 10px; font-weight: 600;">
-      <img src="/images/management.png" height="16px">&nbsp; FFL Commish Tool
+    <div
+      class="border-bottom border-primary shadow-sm"
+      style="padding: 7px 10px 5px 10px; font-weight: 600; font-size: 22px; text-align: center;">
+        <img src="/images/management.png" height="30px">&nbsp; FFL Commish Tool
     </div>
-    <div class="row">
+    <div class="row g-0">
 
       <!-- List of teams / left column -->
-      <div class="col">
-
-        <!-- Copy All Keepers button (top of left column) -->
-        <div>
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-secondary text-start"
-            style="width: 100%;">
-              Copy All Keepers&nbsp;&nbsp;<img src="/images/copy.png" height="16px">
-          </button>
-        </div>
+      <div class="col" id="teamsListColumn">
 
         <!-- List of teams (most of left column) -->
         <div
@@ -38,17 +35,40 @@
             <!-- Populated dynamically -->
         </div>
 
+        <!-- FOOTER: attribution for favicon from https://www.flaticon.com/free-icon/management_17270492 -->
+        <div style="font-size: smaller; text-align: center;">
+          <br><a href="https://www.flaticon.com/free-icons/american-football" title="Favicon credit">Favicon
+            created by ffif fudin - Flaticon</a>|<a href="https://www.flaticon.com/free-icons/ui"
+            title="UI icons credit">UI icons created by See Icons - Flaticon</a>
+        </div>
+
       </div>
 
-      <!-- List of keepers for selected team / right column -->
-      <div class="col">
+      <!-- List of players for selected team / right column -->
+      <div class="col" id="keepersColumn">
 
-        <!-- Copy current team keepers button (top of right column) -->
-        <div id="keepers">Copy keepers for current team (oo)</div>
+        <!-- Nav buttons above the list of players -->
+        <div id="keeperNavButtons" class="btn-group" role="group">
+          <button id="btn-back" type="button" class="btn btn-outline-light ffl-nav-button" onclick="onBackClick();">
+            <img src="/images/left-arrow.png" height="16px">&nbsp;&nbsp;Back
+          </button>
+          <button id="btn-copy" type="button" class="btn btn-outline-light ffl-nav-button" onclick="onCopyTeamKeepersClick();">
+            <img src="/images/copy.png" height="16px">&nbsp;&nbsp;Copy Keepers (This Team)
+          </button>
+          <button id="btn-copy-all" type="button" class="btn btn-outline-light ffl-nav-button" onclick="onCopyAllKeepersClick();">
+            <img src="/images/copy.png" height="16px">&nbsp;&nbsp;Copy Keepers (Full League)
+          </button>
+          <button id="btn-prev" type="button" class="btn btn-outline-light ffl-nav-button" onclick="onPrevClick();">
+            <img src="/images/up-arrow.png" height="16px">&nbsp;&nbsp;Prev
+          </button>
+          <button id="btn-next" type="button" class="btn btn-outline-light ffl-nav-button" onclick="onNextClick();">
+            <img src="/images/down-arrow.png" height="16px">&nbsp;&nbsp;Next
+          </button>
+        </div>
 
         <!-- List of keepers for currently selected team (most of right column) -->
+        <!-- Hydrated on selecting a team -->
         <div class="team"><ul id="list-of-keepers"></ul></div>
-
       </div>
     </div>
 
@@ -59,13 +79,12 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
     <script src="/javascripts/client_app.js"></script>
-  </body>
 
-  <footer>
-    <!-- Attribution for favicon from https://www.flaticon.com/free-icon/management_17270492 -->
-    <br><a href="https://www.flaticon.com/free-icons/american-football" title="favicon credit">favicon by ffif fudin/flaticon</a>
-    <a href="https://www.flaticon.com/free-icons/copy" title="copy icons">Copy icons created by Freepik - Flaticon</a>
-  </footer>
+</div>
+<div class="col-sm-2" id="space2"></div>
+</div> <!-- Close the row -->
+</div> <!-- Close the container -->
+  </body>
 
   <!-- Populated from backend -->
   <div id="leagueData" style="display: none;"><%= leagueData %></div>
